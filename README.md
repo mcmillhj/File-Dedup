@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mcmillhj/file-dedup.svg?branch=master)](https://travis-ci.org/mcmillhj/file-dedup)
+[![Build Status](https://travis-ci.org/mcmillhj/File-Dedup.svg?branch=master)](https://travis-ci.org/mcmillhj/file-dedup)
 [![Coverage Status](https://coveralls.io/repos/mcmillhj/file-dedup/badge.png?branch=master)](https://coveralls.io/r/mcmillhj/file-dedup?branch=master)
 [![Kwalitee status](http://cpants.cpanauthors.org/dist/File-Dedup.png)](http://cpants.charsbar.org/dist/overview/File-Dedup)
 
