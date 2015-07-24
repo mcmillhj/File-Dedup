@@ -1,4 +1,5 @@
 package File::Dedup;
+# ABSTRACT: Deduplicate files across directories
 
 use strict;
 use warnings;
