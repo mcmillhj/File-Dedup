@@ -51,8 +51,21 @@ sub group {
    return shift->{group};
 }
 
+sub _file_md5 {
+   my ($filename) = @_;
+
+   open my $fh, '<', $filename
+      or die "$!";
+   
+   my $checksum = Digest::MD5->new->addfile($fh)->hexdigest;
+   close($fh);
+
+   return $checksum;
+}
+
 sub dedup {
    my ($self) = @_;
+ 
    my @results = $self->_dirwalk(
       $self->directory, 
       sub { [ $_[0], _file_md5 $_[0] ] }, 
@@ -72,18 +85,6 @@ sub dedup {
    $self->_purge_files(\@files_to_purge);
    
    return;
-}
-
-sub _file_md5 {
-   my ($filename) = @_;
-
-   open my $fh, '<', $filename
-      or die "$!";
-   
-   my $checksum = Digest::MD5->new->addfile($fh)->hexdigest;
-   close($fh);
-
-   return $checksum;
 }
 
 sub _handle_duplicates {
@@ -183,7 +184,8 @@ sub _prompt {
 
 sub _dirwalk {
    my ($self, $top, $filefunc, $dirfunc) = @_;
-
+   use Data::Dumper;
+   print Dumper $top;
    if ( -d $top ) {
       # stop processing non-recursive searches when a directory that
       # was not the starting directory is encountered
