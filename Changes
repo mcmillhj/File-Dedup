@@ -3,6 +3,8 @@ Revision history for File-Dedup
 {{$NEXT}}
 
 0.002       2015-07-24
-
+    - removed leftover Data::Dumper import and print statement
 0.001       2015-07-24
-    -
+    - initial release 
+    - Duplicate files can be found and deleted by their MD5 checksum
+    - 'group' option not yet implemented
