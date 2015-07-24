@@ -8,7 +8,7 @@ File::Dedup - Deduplicate files across directories
 
 # VERSION
 
-version 0.001
+version 0.002
 
 # SYNOPSIS
 
@@ -32,6 +32,21 @@ A small utility to identify duplicate files in a given directory and optionally 
 # NAME 
 
 File::Dedup
+
+# ATTRIBUTES 
+
+- `directory`
+
+    Directory to start searching for duplicates in. \[required\]
+
+- `ask`
+- `recursive`
+
+    Recursively search the directory tree for duplicates. \[optional\]
+
+- `group`
+
+    \*NOT YET IMPLEMENTED\*. Instead of deleting duplicates this option will write all duplicates into their own subfolders for deletion at the user's leisure.
 
 # METHODS
 
