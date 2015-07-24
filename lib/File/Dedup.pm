@@ -184,8 +184,7 @@ sub _prompt {
 
 sub _dirwalk {
    my ($self, $top, $filefunc, $dirfunc) = @_;
-   use Data::Dumper;
-   print Dumper $top;
+
    if ( -d $top ) {
       # stop processing non-recursive searches when a directory that
       # was not the starting directory is encountered
@@ -238,6 +237,28 @@ A small utility to identify duplicate files in a given directory and optionally 
     ask       => 0,
  );
  $deduper->dedup;
+
+=head1 ATTRIBUTES 
+
+=over 4 
+
+=item C<directory>
+
+Directory to start searching for duplicates in. [required]
+
+=item C<ask>
+
+
+
+=item C<recursive>
+
+Recursively search the directory tree for duplicates. [optional]
+
+=item C<group>
+
+*NOT YET IMPLEMENTED*. Instead of deleting duplicates this option will write all duplicates into their own subfolders for deletion at the user's leisure.
+
+=back 
 
 =head1 METHODS
 
