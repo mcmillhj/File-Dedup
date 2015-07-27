@@ -268,30 +268,6 @@ Recursively search the directory tree for duplicates. [optional]
 
 Identifies and eliminates duplicate files based on the options supplied by the user. 
 
-=item C<_file_md5>
-
-Private subroutine. Given a filename, computes the MD5 checksum of the contents of the file.
-
-=item C<_handle_duplicates>
-
-Private subroutine. Passed a hashref of duplicates files group by MD5 checksum, this subroutine determines which files should be deleted. Some user input is required unless the ask option was set to 0.
-
-=item C<_purge_files>
-
-Private subroutine. Passed an arrayref of filenames, deletes these files.
-
-=item C<_delete_file>
-
-Private subroutine. Given a filename, deletes the corresponding file using the unlink built-in
-
-=item C<_prompt>
-
-Private subroutine. Reads user input from STDIN, encapsulated in a subroutine for testing purposes.
-
-=item C<_dirwalk>
-
-Private subroutine. Recursively (if the recursive option is enabled) walks the supplied directory path. Two functions are supplied as input to _dirwalk: one for files and one for directories. They are applied respectively to each file or directory encountered during the recursive search.
-
 =back
 
 =cut
