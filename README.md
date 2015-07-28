@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/mcmillhj/%{dist}.svg?branch=master)](https://travis-ci.org/mcmillhj/%{dist})
-[![Coverage Status](https://coveralls.io/repos/mcmillhj/%{dist}/badge.png?branch=master)](https://coveralls.io/r/mcmillhj/%{dist}?branch=master)
+[![Build Status](https://travis-ci.org/mcmillhj/File-Dedup.svg?branch=master)](https://travis-ci.org/mcmillhj/File-Dedup)
+[![Coverage Status](https://coveralls.io/repos/mcmillhj/File-Dedup/badge.png?branch=master)](https://coveralls.io/r/mcmillhj/File-Dedup?branch=master)
 [![Kwalitee status](http://cpants.cpanauthors.org/dist/File-Dedup.png)](http://cpants.charsbar.org/dist/overview/File-Dedup)
 
 # NAME
@@ -8,7 +8,7 @@ File::Dedup - Deduplicate files across directories
 
 # VERSION
 
-version 0.003
+version 0.004
 
 # SYNOPSIS
 
