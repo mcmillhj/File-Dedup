@@ -2,6 +2,8 @@ Revision history for File-Dedup
 
 {{$NEXT}}
 
+0.003       2015-07-28
+
 0.002       2015-07-24
     - removed leftover Data::Dumper import and print statement
 0.001       2015-07-24
