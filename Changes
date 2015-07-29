@@ -1,7 +1,9 @@
 Revision history for File-Dedup
 
 {{$NEXT}}
-
+    - fixed bug where pressing [nN] to not delete a file would continue to prompt the user for input instead of exiting
+    - fixed bug where the return status of _get_numeric_response was being checked with logical not but has a valid return status of '0' sometimes
+      this caused the program to not function properly when a user chose to keep the first duplicated file
 0.004       2015-07-28
     - updated dist.ini to correct metaresources for TravisCI and coveralls.io
 0.003       2015-07-28

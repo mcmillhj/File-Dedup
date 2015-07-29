@@ -4,6 +4,7 @@ package File::Dedup;
 use strict;
 use warnings;
 
+use Data::Dumper;
 use Digest::MD5 qw(md5_hex);
 use feature qw(say);
 
@@ -107,7 +108,7 @@ sub _handle_duplicates {
          say "[ -1]\tSKIP";
          say "[C-c]\tQUIT";
          $to_keep = _get_numeric_response($number_of_files);
-         next if !$to_keep || $to_keep && $to_keep == -1;
+         next if ! defined $to_keep || defined $to_keep && $to_keep == -1;
       }
       else { # if ask = 0 keep the first duplicate
          $to_keep = 0;
@@ -124,13 +125,14 @@ sub _purge_files {
    my ($self, $files) = @_;
 
    foreach my $file ( @$files ) {
+      print "purging file: $file\n";
       my $response;
       if ( $self->ask ) { 
          do {
             print "About to delete '$file'; continue? [Y/n] ";
             $response = _prompt();
          }
-         while ( !grep { $response eq $_ } ('y', 'Y', '') );
+         while ( !grep { $response eq $_ } ('y', 'Y', 'n', 'N', '') );
       }
 
       _delete_file($file)
@@ -172,13 +174,14 @@ sub _get_numeric_response {
       }
    } while( !$valid_response );
 
+   print "AFTER get_numeric_response: $input\n";
    return $input;
 }
 
 sub _prompt {
-   my $input = <>;
+   my $input = <STDIN>;
    chomp($input);
-
+   
    return $input;
 }
 
