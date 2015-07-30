@@ -5,7 +5,7 @@ use warnings;
 
 use File::Dedup;
 use Sub::Override;
-use Test::More tests => 4;
+use Test::More tests => 3;
 
 subtest 'File::Dedup-_handle_duplicates[ask=0]' => sub {
    plan tests => 1;
@@ -45,24 +45,6 @@ subtest 'File::Dedup-_handle_duplicates[ask=1]-SKIP' => sub {
       [ $deduper->_handle_duplicates( STUB_DUPLICATES() ) ],
       [],
       'when ask = 1 and -1 is chosen as the index of the file to keep, no files are purged',
-   );
-   $override->restore;           
-};
-
-subtest 'File::Dedup-_handle_duplicates[ask=1]-CTRL-C' => sub {
-   plan tests => 1;
-
-   my $was_interrupted = 0;
-   $SIG{INT} = sub { $was_interrupted = 1; return };
-   my $override = Sub::Override->new( 
-      'File::Dedup::_prompt' => sub { kill 'INT', $$; }, # cancel delete via interrupt
-   );
-   
-   my $deduper = File::Dedup->new( directory => '.' );
-   $deduper->_handle_duplicates( STUB_DUPLICATES() );
-   is( $was_interrupted,
-       1,
-       'Ctrl-C was captured by $SIG{INT} handler'
    );
    $override->restore;           
 };
