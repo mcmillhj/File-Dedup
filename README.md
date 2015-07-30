@@ -8,7 +8,7 @@ File::Dedup - Deduplicate files across directories
 
 # VERSION
 
-version 0.005
+version 0.006
 
 # SYNOPSIS
 
