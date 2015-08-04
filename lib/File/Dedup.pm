@@ -4,8 +4,7 @@ package File::Dedup;
 use strict;
 use warnings;
 
-use Data::Dumper;
-use Digest::MD5 qw(md5_hex);
+use Digest::SHA;
 use feature qw(say);
 
 my @VALID_OPTIONS = qw(ask directory group recursive);
@@ -52,13 +51,13 @@ sub group {
    return shift->{group};
 }
 
-sub _file_md5 {
+sub _file_digest {
    my ($filename) = @_;
 
    open my $fh, '<', $filename
       or die "$!";
    
-   my $checksum = Digest::MD5->new->addfile($fh)->hexdigest;
+   my $checksum = Digest::SHA->new->addfile($fh)->hexdigest;
    close($fh);
 
    return $checksum;
@@ -69,20 +68,22 @@ sub dedup {
  
    my @results = $self->_dirwalk(
       $self->directory, 
-      sub { [ $_[0], _file_md5 $_[0] ] }, 
+      sub { [ $_[0], _file_digest($_[0]) ] }, 
       sub { shift; @_ } 
    );
-
-   my %files_by_md5sum;
+   use Data::Dumper;
+   print Dumper \@results;
+   my %files_by_hashsum;
    foreach my $result ( @results ) {
-      push @{ $files_by_md5sum{$result->[1]} }, $result->[0];
+      my ($filename, $digest) = @$result;
+      push @{ $files_by_hashsum{$digest} }, $filename;
    }
 
-   my %duplicates_by_md5sum =
-      map  { $_ => [ sort @{$files_by_md5sum{$_}} ] }
-      grep { @{ $files_by_md5sum{$_} } > 1 } keys %files_by_md5sum;
+   my %duplicates_by_hashsum =
+      map  { $_ => [ sort @{$files_by_hashsum{$_}} ] }
+      grep { @{ $files_by_hashsum{$_} } > 1 } keys %files_by_hashsum;
 
-   my @files_to_purge = $self->_handle_duplicates(\%duplicates_by_md5sum);
+   my @files_to_purge = $self->_handle_duplicates(\%duplicates_by_hashsum);
    $self->_purge_files(\@files_to_purge);
    
    return;
@@ -93,7 +94,7 @@ sub _handle_duplicates {
    return unless keys %$duplicates;
 
    my @files_to_purge; 
-   while ( my ($md5, $files) = each %$duplicates ) {
+   while ( my ($digest, $files) = each %$duplicates ) {
       my $to_keep; 
       if ( $self->ask ) { 
          say 'The following files are duplicates '

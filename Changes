@@ -1,7 +1,7 @@
 Revision history for File-Dedup
 
 {{$NEXT}}
-
+   - switching to SHA1 from MD5 based on feedback from David Farrell in issue #1
 0.006       2015-07-30
     - remove pointless Ctrl-C capture test from t/03-duplicates.t that caused a CPANTesters failure on Windows
 0.005       2015-07-28
